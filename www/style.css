@@ -36,11 +36,12 @@ border-bottom-left-radius: 10px 5px;
 
 #text {
 margin-left: 10px;
+margin-right: 10px;
 }
 
-a {color:white; margin-left: 5px}
+a {color:white; margin-left: 5px; margin-right: 10px;}
 a:active {color:black;}
 
-h1,h2 { margin-left: 5px}
-p { margin-left: 5px}
-dl { margin-left: 5px}
+h1,h2 { margin-left: 5px; margin-right: 10px;}
+p { margin-left: 5px; margin-right: 10px;}
+dl { margin-left: 5px; margin-right: 10px;}
