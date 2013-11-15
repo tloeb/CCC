@@ -30,9 +30,14 @@
 									   <link rel="shortcut icon" href="../assets/ico/favicon.png">
 		<style type="text/css"></style>
 		<style type="text/css"></style>
+		
+		<!-- Must Be loaded at the Beginning-->
+		<script src="../assets/js/Chart.js"></script>
+		<script src="../assets/js/content.js"></script>
+		
 	</head>
 
-	<body>
+	<body onLoad="getChart()">
 		<div class="navbar navbar-inverse navbar-fixed-top">
 		  <div class="navbar-inner">
 			<div class="container">
@@ -46,16 +51,35 @@
 		  </div>
 		</div>
 
-		<div class="container">
-		  <h1>Bootstrap starter template</h1>
-		  <p>Use this document as a way to quick start any new project.<br> All you get is this message and a barebones HTML document.</p>
-		</div> <!-- /container -->
+		<div id="myCarousel" class="carousel slide">
+		  <ol class="carousel-indicators">
+			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+			<li data-target="#myCarousel" data-slide-to="1"></li>
+			<li data-target="#myCarousel" data-slide-to="2"></li>
+		  </ol>
+		  <!-- Carousel items -->
+		  <div class="carousel-inner">
+			<div class="active item">
+				<canvas id="fuckit" height="450" width="600"></canvas>
+			</div>
+			<div class="item">
+				Chart 2
+			</div>
+			<div class="item">
+				Chart 3
+			</div>
+		  </div>
+		<!-- Carousel nav -->
+		  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+		  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+		</div>
 
 		<!-- javascript
 		================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
 		<script src="../assets/js/jquery.js"></script>
 		<script src="../assets/js/bootstrap.js"></script>
+		<script src="../assets/js/Chart.js"></script>
 
 	</body>
 </html>
