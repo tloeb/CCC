@@ -6,48 +6,58 @@ import pprint
 import sqlite3
 
 pp = pprint.PrettyPrinter(indent=4)
-
+i = 1
 #Verbinde zu Datenbank
-connection = sqlite3.connect('temps.db')
+connection = sqlite3.connect('data.db')
 cursor = connection.cursor()
 
 #Drop all existing Tables
-cursor.execute("DROP TABLE Temperatures")
-	
+#cursor.execute("DROP TABLE Temperatures")
+
+#Create Table
+#cursor.execute(""" CREATE TABLE temperatures(origin TEXT, temp TEXT, date TEXT)""")
+
 def getData():
 	cities = pywapi.get_cities_from_google('de') # or (country = 'fr', hl = 'de')
-	locidhn = pywapi.get_loc_id_from_weather_com("Hannover")
+	locidparis = pywapi.get_loc_id_from_weather_com("Paris")
 	locidbs = pywapi.get_loc_id_from_weather_com("Braunschweig")
-	locidsc = pywapi.get_loc_id_from_weather_com("London")
+	locidlondon = pywapi.get_loc_id_from_weather_com("London")
 
-	tempbs = pywapi.get_weather_from_weather_com("GMXX0013")
-	temphn = pywapi.get_weather_from_weather_com("GMXX0051")
-	templo = pywapi.get_weather_from_weather_com("UKXX0085")
-	
+	Bs = pywapi.get_weather_from_weather_com("GMXX0013")
+	Paris = pywapi.get_weather_from_weather_com("FRXX0076")
+	London = pywapi.get_weather_from_weather_com("UKXX0085")
+
 	datetime = time.strftime("Date: %d-%B-%Y  Time: %H:%M:%S")
 
-	#pp.pprint(locidlo)		# London Loc ID UKXX0085
-	#pp.pprint(locidbs)		# Braunschweig Loc ID: GMXX0013
-	#pp.pprint(locidhn)		# Hannover Loc ID: GMXX0051
+	tempBs = str(Bs['current_conditions']['temperature'])
+	tempLondon = str(London['current_conditions']['temperature'])
+	tempParis = str(Paris['current_conditions']['temperature'])
 
-	#pp.pprint(tempbs)		
-	pp.pprint(datetime)
-	pp.pprint("Aktuelle Temperatur in Braunschweig: " + tempbs['current_conditions']['temperature'] +" Grad")
-	pp.pprint("Aktuelle Temperatur in London: " + templo['current_conditions']['temperature'] +" Grad")
-	pp.pprint("Aktuelle Temperatur in Hannover: " + temphn['current_conditions']['temperature'] +" Grad")
-	
-	cursor.execute(" INSERT INTO temp VALUES ('Braunschweig',?, ?)", datetime, tempbs)
+##	pp.pprint(datetime)
+##	pp.pprint("Aktuelle Temperatur in Braunschweig: " + tempBs +" Grad")
+##	pp.pprint("Aktuelle Temperatur in London: " + tempLondon +" Grad")
+##	pp.pprint("Aktuelle Temperatur in Paris: " + tempParis +" Grad")
 
-	
-cursor.execute(" CREATE TABLE Temperatures(origin text, time text, temp text)")
-	
-for i in range(0, 10):
-	
-	pp.pprint("+++++++++++++++++++++++++++++++++++")
+	werte = [('Braunschweig', tempBs, str(datetime)),
+                 ('London', tempLondon, str(datetime)),
+                 ('Paris', tempParis, str(datetime))]
+	cursor.executemany("INSERT INTO temperatures VALUES (?,?,?)", werte)
+	connection.commit()
+
+while i<5:
+
 	getData()
-	writeData()
-	cursor.execute(" SELECT * FROM Temperatures")
-	time.sleep(3)
-
-connection.commit()
-connection.close()
+	pp.pprint("+++++++++++++++++++++++++++++++++++")
+	pp.pprint("Braunschweig Data: ")
+	cursor.execute(" Select * from temperatures WHERE origin = 'Braunschweig'")
+	pp.pprint(cursor.fetchall())
+	pp.pprint("London Data: ")
+	cursor.execute(" Select * from temperatures WHERE origin = 'London'")
+	pp.pprint(cursor.fetchall())
+	pp.pprint("Paris Data: ")
+	cursor.execute(" Select * from temperatures WHERE origin = 'Paris'")
+	pp.pprint(cursor.fetchall())
+	time.sleep(2800)
+	#i = i +1
+	
+#connection.close()
