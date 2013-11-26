@@ -3,7 +3,7 @@
 		<meta charset="utf-8">
 		<title>CCC</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="author" content="Tobias Löb">
+		<meta name="author" content="Tobias LÃ¶b">
 
 		<!-- CSS imports -->
 		<link href="../assets/css/bootstrap.css" rel="stylesheet">
@@ -32,10 +32,27 @@
 		<style type="text/css"></style>
 		
 		<!-- Must Be loaded at the Beginning-->
+    <script src="../assets/js/jquery.js"></script>
 		<script src="../assets/js/Chart.js"></script>
 		<script src="../assets/js/content.js"></script>
 		
 	</head>
+  
+  <script>
+
+  $(function()
+  {
+    $('#clickme').click(function()
+    {
+     alert('Im going to start processing');
+     $.getJSON('/assets/py/catchdata.py', {
+         success: function(data) {
+                   print("data Fetched");
+                  };
+      });
+    }
+  }
+ </script>
 
 	<body onLoad="getChart()">
 		<div class="navbar navbar-inverse navbar-fixed-top">
@@ -50,6 +67,7 @@
 			</div>
 		  </div>
 		</div>
+    <button id="clickme">Update</button>
 
 		<div id="myCarousel" class="carousel slide">
 		  <ol class="carousel-indicators">

@@ -1,13 +1,17 @@
+#!/usr/bin/ python
+
 import sqlite3
+import json
 
 #Verbinde zu Datenbank
 connection = sqlite3.connect('data.db')
 cursor = connection.cursor()
 
-catchData()
+cursor.execute(" Select temp from temperatures WHERE origin = 'Braunschweig'")
+BSData = cursor.fetchall()
+output = "Hello"
 
-def catchData():
-    cursor.execute(" Select temp from temperatures WHERE origin = 'Braunschweig'")
-    BSData = cursor.fetchall()
+return HttpResponse(output, content_type="application/json")
 
-    return BSData
+
+

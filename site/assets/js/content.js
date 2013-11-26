@@ -1,3 +1,29 @@
+
+//   jQuery.ajax({
+//      type: "get",
+//      url: "../py/catchdata.py",
+//      data: {'param1':'abc'},
+//      datatype:"script",
+//      async:false,
+//      success: function(response) {         
+//        var json_obj= eval('(' + response + ')');//$.parseJSON("'"+response+"'");
+//        if (json_obj.type == 'Error'){
+//          alert(json_obj.msg);
+//        }
+//        else {
+//          alert(json_obj.msg);
+//        }// else closed
+//        },
+//      error:function(xhr,err)
+//      {
+//        alert("Error connecting to server, please contact system administrator.")    
+//      }
+//    })    
+//}
+
+var out = jQuery.getScript("assets/py/catchdata.py");
+document.write(out);
+
 function getChart() {
 
 		var Graph1 = {
@@ -42,7 +68,7 @@ function getChart() {
 			
 		} 
 
-	var BuildG1 = new Chart(document.getElementById("graph1").getContext("2d")).Line(Graph1);
+  var BuildG1 = new Chart(document.getElementById("graph1").getContext("2d")).Line(Graph1);
   var BuildG2 = new Chart(document.getElementById("graph2").getContext("2d")).Line(Graph2);
   var BuildG3 = new Chart(document.getElementById("graph3").getContext("2d")).Line(Graph3);
 }
