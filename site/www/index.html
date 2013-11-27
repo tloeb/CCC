@@ -45,13 +45,11 @@
     $('#clickme').click(function()
     {
      alert('Im going to start processing');
-     $.getJSON('/assets/py/catchdata.py', {
-         success: function(data) {
-                   print("data Fetched");
-                  };
+     $.getJSON('/assets/py/catchdata.py', function(data){
+		print(data);
       });
-    }
-  }
+    });
+  });
  </script>
 
 	<body onLoad="getChart()">

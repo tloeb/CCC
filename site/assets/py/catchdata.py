@@ -7,11 +7,11 @@ import json
 connection = sqlite3.connect('data.db')
 cursor = connection.cursor()
 
-cursor.execute(" Select temp from temperatures WHERE origin = 'Braunschweig'")
+cursor.execute(" Select origin,temp from temperatures")
 BSData = cursor.fetchall()
-output = "Hello"
 
-return HttpResponse(output, content_type="application/json")
+print ("Content-type: application/json")
+print (json.JSONEncoder().encode(BSData))
 
 
 
